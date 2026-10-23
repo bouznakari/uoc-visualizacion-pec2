@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Exploración de la jerarquía de paquetes Flare mediante un árbol hiperbólico interactivo.">
+  <title>Flare · árbol hiperbólico</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="vendor/d3-hypertree-light.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="vendor/d3-hypertree.min.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">◌</span><span>VISUALIZACIÓN DE DATOS <span class="brand-divider">/</span> PEC 2</span></div>
+    <span class="technique">TÉCNICA 01 · HYPERBOLIC TREES</span>
+  </header>
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <div><p class="eyebrow">JERARQUÍAS · FOCO Y CONTEXTO</p><h1 id="page-title">Explorar Flare sin perder el camino</h1><p class="lead">Busca una clase o elige una rama. El elemento elegido queda en el centro y las ramas más lejanas se comprimen hacia el borde.</p></div>
+      <div class="dataset-facts" aria-label="Resumen del conjunto de datos"><span><strong id="node-count">252</strong> nodos</span><span><strong id="leaf-count">220</strong> hojas</span><span><strong id="level-count">5</strong> niveles</span></div>
+    </section>
+
+    <section class="workspace" aria-label="Explorador del árbol">
+      <div class="chart-column">
+        <div class="toolbar">
+          <div class="search-wrap">
+            <label for="search">Buscar paquete o clase</label>
+            <input id="search" type="search" autocomplete="off" placeholder="Ej.: DataList, analytics, data" aria-controls="search-results" aria-expanded="false">
+            <div id="search-results" class="search-results" role="group" aria-label="Resultados de búsqueda" hidden></div>
+          </div>
+          <button id="reset" class="button button-secondary" type="button">Vista inicial</button>
+        </div>
+        <div class="chart-card">
+          <div class="chart-note"><span class="legend-dot internal"></span>Raíz <span class="legend-dot leaf"></span>Nodos visibles <span class="legend-selected" aria-hidden="true"></span>Selección <span class="legend-tip">Clic en un nodo para centrarlo · arrastra para explorar</span></div>
+          <div id="tree" role="img" aria-label="Árbol hiperbólico de la jerarquía Flare. Para navegar con teclado, usa la búsqueda y la lista de elementos del panel lateral."></div>
+          <p id="status" class="status" role="status" aria-live="polite">Cargando árbol…</p>
+        </div>
+      </div>
+
+      <aside class="details" aria-labelledby="detail-title">
+        <div class="panel-heading"><p class="eyebrow">ELEMENTO EN FOCO</p><h2 id="detail-title">flare</h2><p id="detail-type" class="type-label">Raíz · paquete</p></div>
+        <div class="panel-section"><h3>Ruta en la jerarquía</h3><nav id="breadcrumb" aria-label="Ruta del elemento seleccionado"></nav></div>
+        <div class="panel-section"><h3>Este elemento</h3><dl class="metrics"><div><dt>Profundidad</dt><dd id="metric-depth">0</dd></div><div><dt>Hijos directos</dt><dd id="metric-children">10</dd></div><div><dt>Descendientes</dt><dd id="metric-descendants">251</dd></div></dl><p class="metric-note">Los círculos aparentes no representan tamaño de código ni importancia.</p></div>
+        <div class="panel-section"><div class="list-heading"><h3 id="children-title">Ramas siguientes</h3><span id="children-count"></span></div><div id="children" class="children-list" aria-labelledby="children-title"></div></div>
+        <div class="panel-actions"><button id="parent" class="button button-secondary" type="button" disabled>Subir al padre</button><button id="previous" class="button button-text" type="button" disabled>Foco anterior</button></div>
+      </aside>
+    </section>
+
+    <section class="reading-note" aria-labelledby="about-title"><h2 id="about-title">Qué permite observar</h2><p>Flare organiza paquetes y clases en una jerarquía de cinco niveles. El disco reserva espacio visual al foco y comprime progresivamente las ramas lejanas. La periferia se simplifica para facilitar la lectura; la búsqueda permite localizar cualquiera de los 252 nodos. Esta vista muestra relaciones padre-hijo; no mide el tamaño ni la calidad del software.</p><p class="source">Datos: <a href="https://github.com/d3/d3-hierarchy/blob/main/test/data/flare.json">jerarquía Flare de D3</a>. Visualización para la PEC 2 de M2.859, UOC.</p></section>
+    <p class="source-note"><a href="../notas-tecnicas/#hyperbolic">Fundamentos, datos y límites de esta técnica</a></p>
+  </main>
+</body>
+</html>
