@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explora la población de 217 economías en 2025 mediante círculos agrupados por región del Banco Mundial.">
+  <title>Población por regiones · Circle Packing</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+  <script src="vendor/d3-hierarchy-3.1.2.min.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="site-header"><a href="../hyperbolic-tree/">Visualización de datos / PEC 2</a><span>Circle Packing</span></header>
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <div><p class="kicker">Población · 2025</p><h1 id="page-title">La población, región a región</h1><p class="lead">Explora la población de 217 economías agrupadas en siete regiones del Banco Mundial. Cada círculo pequeño es una economía: su área representa el número de habitantes.</p></div>
+      <div class="represented"><span>Total representado</span><strong id="represented-total">Cargando…</strong><span>personas · estimaciones de 2025</span></div>
+    </section>
+
+    <section class="explorer" aria-label="Explorador de población">
+      <div class="plot-column">
+        <div class="toolbar">
+          <div class="search-wrap"><label for="search">Buscar una economía</label><input id="search" type="search" placeholder="Nombre o código: India, Tuvalu, ESP…" autocomplete="off" aria-controls="search-results" aria-expanded="false" disabled><div id="search-results" class="search-results" role="group" aria-label="Resultados de búsqueda" hidden></div></div>
+          <div class="region-wrap"><label for="region-select">Explorar región</label><select id="region-select" disabled><option value="represented">Todas las regiones</option></select></div>
+        </div>
+        <div class="plot-frame">
+          <div class="view-toolbar"><span id="view-label">Vista general</span><div><button id="up" type="button" disabled>Subir nivel</button><button id="reset" type="button" disabled>Vista general</button></div></div>
+          <svg id="packing" viewBox="-30 -30 1060 1060" role="img" aria-label="Círculos de población agrupados por región. Usa la búsqueda, el selector de región o el panel para consultar cada economía con teclado." aria-describedby="encoding-note"></svg>
+          <p id="status" role="status" aria-live="polite">Cargando las economías representadas…</p>
+          <p class="encoding-note" id="encoding-note">El área de cada economía representa población. Los círculos que agrupan regiones incluyen huecos: compara sus totales en el panel. Al ampliar, cambia la escala de la vista.</p>
+        </div>
+        <div id="region-legend" class="region-legend" aria-label="Regiones del Banco Mundial"></div>
+      </div>
+
+      <aside id="detail-panel" class="detail-panel" aria-labelledby="detail-title">
+        <p id="detail-type" class="kicker">Conjunto representado</p><h2 id="detail-title" tabindex="-1">Economías representadas</h2>
+        <nav id="breadcrumb" aria-label="Ruta de la selección"></nav>
+        <div class="population-block"><span>Población de 2025</span><strong id="population">—</strong><span id="population-exact">personas</span></div>
+        <dl class="metrics"><div><dt>Del total representado</dt><dd id="share-total">—</dd></div><div><dt id="metric-secondary-title">Economías</dt><dd id="metric-secondary">—</dd></div></dl>
+        <p class="selection-note">El contorno oscuro marca la selección. Para las economías pequeñas se amplía solo ese contorno, no el círculo de población.</p>
+        <div class="list-heading"><h3 id="children-title">Regiones</h3><span id="children-count"></span></div><div id="children" class="children-list" aria-labelledby="children-title"></div>
+      </aside>
+    </section>
+
+    <section class="explanation" aria-labelledby="reading-title"><div><h2 id="reading-title">Qué se ve aquí</h2><p id="insight">Las cifras permiten comparar las economías sin depender solo de la percepción de las áreas.</p><p>Los colores identifican regiones, no cantidades. La posición de los círculos no es geográfica. Las regiones se muestran en castellano; los datos conservan los nombres y las agrupaciones originales del Banco Mundial.</p></div><div class="coverage"><h2>Qué incluye el total</h2><p>Sumamos las 217 economías con región asignada y excluimos las filas agregadas para evitar contarlas dos veces. Su suma no coincide con la fila mundial del archivo: <span id="coverage-detail">cargando cifras…</span> No se ha establecido la causa de esa diferencia.</p></div></section>
+    <footer class="source-note"><p>Fuente: <a href="https://data.worldbank.org/indicator/SP.POP.TOTL">Banco Mundial, SP.POP.TOTL</a>. Estimaciones de residentes a mitad de año, independientemente de ciudadanía o situación legal. Fuentes originales: Naciones Unidas, oficinas estadísticas nacionales y Eurostat, entre otras.</p><p>Datos actualizados el <span id="updated">—</span>; descarga del 19/10/2026. Licencia <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Visualización para M2.859, UOC.</p></footer>
+    <p class="source-note"><a href="../notas-tecnicas/#circle-packing">Fundamentos, datos y límites de esta técnica</a></p>
+  </main>
+</body>
+</html>
